@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CyberGuard — Free website security checker. Audit DNS records, email authentication, HTTPS, and security headers for any domain." />
+  <meta name="robots" content="index, follow" />
+  <title>CyberGuard — Website Security Checker</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              850: '#1a2234',
+              950: '#0d1424',
+            },
+            emerald: { DEFAULT: '#10b981' },
+          },
+          fontFamily: {
+            mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+
+<body class="bg-slate-950 text-slate-100 font-sans antialiased dark" id="app-body">
+
+  <!-- ===== NAVIGATION BAR ===== -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800" role="navigation" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center" aria-hidden="true">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <span class="text-xl font-bold tracking-tight">Cyber<span class="text-emerald-400">Guard</span></span>
+        </div>
+        <div class="hidden md:flex items-center gap-6 text-sm text-slate-400">
+          <a href="#scanner" class="hover:text-emerald-400 transition-colors focus-ring">Scanner</a>
+          <a href="#results" class="hover:text-emerald-400 transition-colors focus-ring">Results</a>
+          <a href="#about" class="hover:text-emerald-400 transition-colors focus-ring">About</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="relative overflow-hidden py-20 px-4" aria-labelledby="hero-heading">
+      <div class="absolute inset-0 hero-grid-bg pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div class="max-w-4xl mx-auto text-center relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm mb-6">
+          <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" aria-hidden="true"></span>
+          Free · No Account Required · Privacy First
+        </div>
+        <h1 id="hero-heading" class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+          Website Security<br/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Assessment Tool</span>
+        </h1>
+        <p class="text-slate-400 text-lg sm:text-xl max-w-2xl mx-auto mb-8">
+          Audit DNS records, email authentication (SPF, DMARC, DKIM), HTTPS configuration, and security headers — all from your browser, with real data.
+        </p>
+        <a href="#scanner" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold transition-colors focus-ring">
+          Start Scanning
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== DOMAIN SCANNER ===== -->
+    <section id="scanner" class="py-12 px-4" aria-labelledby="scanner-heading">
+      <div class="max-w-3xl mx-auto">
+        <div class="card-panel p-6 sm:p-8">
+          <h2 id="scanner-heading" class="text-xl font-semibold mb-6 flex items-center gap-2">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            Scan a Website
+          </h2>
+
+          <!-- Domain Input -->
+          <div class="mb-4">
+            <label for="domain-input" class="block text-sm font-medium text-slate-300 mb-2">Domain Name</label>
+            <div class="flex gap-3">
+              <div class="relative flex-1">
+                <input
+                  id="domain-input"
+                  type="text"
+                  placeholder="example.com"
+                  maxlength="253"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors font-mono text-sm"
+                  aria-describedby="domain-hint domain-error"
+                />
+                <div id="domain-error" class="hidden mt-1 text-sm text-red-400" role="alert" aria-live="polite"></div>
+              </div>
+              <button
+                id="scan-btn"
+                class="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-950 font-semibold rounded-lg transition-colors focus-ring flex items-center gap-2"
+                aria-label="Scan website"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                Scan
+              </button>
+            </div>
+            <p id="domain-hint" class="mt-2 text-xs text-slate-500">Enter a domain name without http:// — e.g., <code class="text-slate-400">google.com</code> or <code class="text-slate-400">mail.example.org</code></p>
+          </div>
+
+          <!-- DKIM Selector -->
+          <div class="mb-4">
+            <label for="dkim-selector" class="block text-sm font-medium text-slate-300 mb-2">
+              DKIM Selector <span class="text-slate-500 font-normal">(optional)</span>
+            </label>
+            <input
+              id="dkim-selector"
+              type="text"
+              placeholder="google, selector1, default …"
+              maxlength="63"
+              autocomplete="off"
+              spellcheck="false"
+              class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors font-mono text-sm"
+              aria-describedby="dkim-hint"
+            />
+            <p id="dkim-hint" class="mt-2 text-xs text-slate-500">Leave blank to auto-test common selectors: google, selector1, selector2, default, k1</p>
+          </div>
+
+          <!-- HTTP Headers Input -->
+          <div class="mb-6">
+            <label for="headers-input" class="block text-sm font-medium text-slate-300 mb-2">
+              Paste HTTP Response Headers <span class="text-slate-500 font-normal">(optional — provides more accurate header analysis)</span>
+            </label>
+            <textarea
+              id="headers-input"
+              rows="5"
+              placeholder="Paste output of: curl -I https://example.com"
+              maxlength="20000"
+              class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors font-mono text-xs resize-y"
+              aria-describedby="headers-hint"
+            ></textarea>
+            <p id="headers-hint" class="mt-2 text-xs text-slate-500">Run <code class="text-slate-400">curl -I https://yourdomain.com</code> in your terminal, then paste the output here for accurate security header analysis.</p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap gap-3">
+            <button id="scan-btn-main" class="btn-primary flex-1 sm:flex-none focus-ring" aria-label="Scan website security">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              Scan Website
+            </button>
+            <button id="demo-btn" class="btn-secondary flex-1 sm:flex-none focus-ring" aria-label="Load quick demo with sample data">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              Quick Demo
+            </button>
+            <button id="reset-btn" class="btn-ghost flex-1 sm:flex-none focus-ring hidden" aria-label="Reset and clear results">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCAN PROGRESS ===== -->
+    <section id="progress-section" class="hidden px-4 pb-6" aria-live="polite" aria-label="Scan progress">
+      <div class="max-w-3xl mx-auto">
+        <div class="card-panel p-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-semibold flex items-center gap-2">
+              <span class="scan-spinner" aria-hidden="true"></span>
+              <span id="progress-label">Initializing scan…</span>
+            </h3>
+            <span id="progress-pct" class="text-sm text-slate-400 font-mono">0%</span>
+          </div>
+          <div class="w-full h-2 bg-slate-700 rounded-full overflow-hidden" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar-container">
+            <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-300" style="width:0%"></div>
+          </div>
+          <ul id="progress-steps" class="mt-4 space-y-1 text-sm text-slate-400"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RESULTS SECTION ===== -->
+    <section id="results" class="hidden px-4 pb-16" aria-label="Scan results">
+      <div class="max-w-7xl mx-auto">
+
+        <!-- Demo Banner -->
+        <div id="demo-banner" class="hidden mb-6 p-4 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-start gap-3" role="alert">
+          <svg class="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.07 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+          <div>
+            <p class="font-semibold text-amber-400">Demo Mode — Simulated Data</p>
+            <p class="text-sm text-slate-400 mt-1">The results below are <strong>demonstration data only</strong> and do not reflect the actual security posture of any real website. Run a real scan to see genuine results.</p>
+          </div>
+        </div>
+
+        <!-- Score + Summary Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+
+          <!-- Overall Score -->
+          <div class="card-panel p-6 flex flex-col items-center justify-center text-center">
+            <p class="text-sm text-slate-400 mb-3 font-medium uppercase tracking-wider">Security Score</p>
+            <div class="relative w-32 h-32 mb-4" aria-label="Security score gauge">
+              <svg class="w-full h-full -rotate-90" viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#1e293b" stroke-width="10"/>
+                <circle id="score-arc" cx="60" cy="60" r="50" fill="none" stroke="#10b981" stroke-width="10"
+                  stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314"
+                  class="transition-all duration-1000"/>
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <span id="score-value" class="text-4xl font-bold text-slate-100">—</span>
+                <span id="score-label" class="text-xs text-slate-400 mt-1">Not scanned</span>
+              </div>
+            </div>
+            <p id="risk-level" class="text-sm font-semibold px-3 py-1 rounded-full border border-slate-700 text-slate-400">—</p>
+            <p class="text-xs text-slate-500 mt-3 max-w-xs">Educational assessment only — not a formal security certification.</p>
+          </div>
+
+          <!-- Check Counts -->
+          <div class="lg:col-span-2 card-panel p-6">
+            <h3 class="font-semibold mb-4">Summary</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+              <div class="text-center">
+                <div id="count-pass" class="text-3xl font-bold text-emerald-400">—</div>
+                <div class="text-xs text-slate-500 mt-1">Passed</div>
+              </div>
+              <div class="text-center">
+                <div id="count-warn" class="text-3xl font-bold text-amber-400">—</div>
+                <div class="text-xs text-slate-500 mt-1">Warnings</div>
+              </div>
+              <div class="text-center">
+                <div id="count-fail" class="text-3xl font-bold text-red-400">—</div>
+                <div class="text-xs text-slate-500 mt-1">Failed</div>
+              </div>
+              <div class="text-center">
+                <div id="count-unknown" class="text-3xl font-bold text-slate-400">—</div>
+                <div class="text-xs text-slate-500 mt-1">Unknown</div>
+              </div>
+            </div>
+            <div id="score-explanation" class="text-xs text-slate-500 leading-relaxed border-t border-slate-700 pt-4"></div>
+          </div>
+        </div>
+
+        <!-- Checks Grid -->
+        <div class="card-panel p-6 mb-6">
+          <h3 class="font-semibold mb-4">Security Checks</h3>
+          <div id="checks-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+        </div>
+
+        <!-- Detailed Findings -->
+        <div class="card-panel p-6 mb-6">
+          <h3 class="font-semibold mb-4">Detailed Findings &amp; Remediation</h3>
+          <div id="findings-accordion" class="space-y-3"></div>
+        </div>
+
+        <!-- DNS Records -->
+        <div class="card-panel p-6 mb-6">
+          <h3 class="font-semibold mb-4">DNS Records</h3>
+          <div id="dns-records-container" class="space-y-4"></div>
+        </div>
+
+        <!-- TLS / Technical Info -->
+        <div class="card-panel p-6">
+          <h3 class="font-semibold mb-4">HTTPS &amp; TLS Assessment</h3>
+          <div id="tls-info" class="space-y-3"></div>
+          <div class="mt-4 p-4 rounded-lg bg-slate-800/50 border border-slate-700">
+            <p class="text-xs text-slate-400 leading-relaxed">
+              <strong class="text-slate-300">Browser-Only Limitations:</strong> A static application cannot inspect TLS certificate chains, cipher suites, protocol negotiation, certificate fingerprints, or revocation status. These require a server-side implementation (e.g., using OpenSSL or a dedicated TLS scanning backend). Checks listed as "Not Available in Browser-Only Mode" are genuine technical limitations, not omissions.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section id="about" class="py-16 px-4 border-t border-slate-800" aria-labelledby="about-heading">
+      <div class="max-w-4xl mx-auto">
+        <h2 id="about-heading" class="text-2xl font-bold mb-8 text-center">How CyberGuard Works</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card-panel p-5">
+            <div class="w-10 h-10 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center mb-4" aria-hidden="true">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+            </div>
+            <h3 class="font-semibold mb-2">DNS-over-HTTPS</h3>
+            <p class="text-sm text-slate-400">Uses Google's public DoH API to perform real DNS lookups for A, AAAA, MX, NS, TXT, SPF, DMARC, and DKIM records directly from your browser.</p>
+          </div>
+          <div class="card-panel p-5">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mb-4" aria-hidden="true">
+              <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3 class="font-semibold mb-2">Real Security Checks</h3>
+            <p class="text-sm text-slate-400">Checks are based on actual DNS responses and your pasted headers — never fabricated. Unknown or unverifiable checks are clearly labeled.</p>
+          </div>
+          <div class="card-panel p-5">
+            <div class="w-10 h-10 rounded-lg bg-purple-500/20 border border-purple-500/30 flex items-center justify-center mb-4" aria-hidden="true">
+              <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <h3 class="font-semibold mb-2">Privacy First</h3>
+            <p class="text-sm text-slate-400">No account required. No data stored. All processing happens in your browser. Only DNS queries reach external servers (Google's public DoH API).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-slate-800 py-8 px-4" role="contentinfo">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-slate-400">Cyber<span class="text-emerald-400">Guard</span></span>
+        <span>— Free Website Security Assessment Tool</span>
+      </div>
+      <div class="text-center sm:text-right text-xs">
+        <p>Educational use only. Results do not constitute a formal security audit.</p>
+        <p>DNS data via <a href="https://developers.google.com/speed/public-dns/docs/doh/json" class="text-emerald-500 hover:text-emerald-400 focus-ring" target="_blank" rel="noopener noreferrer">Google DNS-over-HTTPS</a>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="script.js"></script>
+
+</body>
+</html>

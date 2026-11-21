@@ -1,0 +1,449 @@
+/* ===================================================================
+   CyberGuard — Custom Styles
+   Complements Tailwind CSS utilities.
+   =================================================================== */
+
+/* ---- Base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+/* ---- Focus Ring ---- */
+.focus-ring:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---- Hero Grid Background ---- */
+.hero-grid-bg {
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ---- Card Panel ---- */
+.card-panel {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+}
+
+/* ---- Buttons ---- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #10b981;
+  color: #0f172a;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-primary:hover {
+  background-color: #34d399;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: #94a3b8;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(100, 116, 139, 0.4);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #10b981;
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: #64748b;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(51, 65, 85, 0.4);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-ghost:hover {
+  border-color: #475569;
+  color: #94a3b8;
+}
+
+/* ---- Copy Button ---- */
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  background: rgba(51, 65, 85, 0.3);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.copy-btn:hover {
+  color: #10b981;
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.copy-btn.copied {
+  color: #10b981;
+  border-color: #10b981;
+}
+
+/* ---- Status Badges ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-pass {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-warn {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-fail {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge-info {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.badge-unknown {
+  background: rgba(100, 116, 139, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+/* ---- Check Card ---- */
+.check-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(51, 65, 85, 0.4);
+  transition: border-color 0.15s ease;
+}
+
+.check-card:hover {
+  border-color: rgba(100, 116, 139, 0.6);
+}
+
+.check-card.status-pass {
+  border-left: 3px solid #10b981;
+}
+
+.check-card.status-warn {
+  border-left: 3px solid #f59e0b;
+}
+
+.check-card.status-fail {
+  border-left: 3px solid #ef4444;
+}
+
+.check-card.status-info {
+  border-left: 3px solid #3b82f6;
+}
+
+.check-card.status-unknown {
+  border-left: 3px solid #64748b;
+}
+
+/* ---- Accordion ---- */
+.accordion-item {
+  border: 1px solid rgba(51, 65, 85, 0.4);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: border-color 0.15s ease;
+}
+
+.accordion-item:hover {
+  border-color: rgba(100, 116, 139, 0.6);
+}
+
+.accordion-item.status-pass { border-left: 3px solid #10b981; }
+.accordion-item.status-warn { border-left: 3px solid #f59e0b; }
+.accordion-item.status-fail { border-left: 3px solid #ef4444; }
+.accordion-item.status-info { border-left: 3px solid #3b82f6; }
+.accordion-item.status-unknown { border-left: 3px solid #64748b; }
+
+.accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: rgba(15, 23, 42, 0.6);
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  color: inherit;
+  gap: 1rem;
+  transition: background-color 0.15s ease;
+}
+
+.accordion-trigger:hover {
+  background: rgba(30, 41, 59, 0.8);
+}
+
+.accordion-trigger:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: -2px;
+}
+
+.accordion-chevron {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: #64748b;
+  transition: transform 0.2s ease;
+}
+
+.accordion-item.open .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordion-item.open .accordion-content {
+  max-height: 2000px;
+}
+
+.accordion-body {
+  padding: 0 1.25rem 1.25rem;
+  background: rgba(15, 23, 42, 0.4);
+}
+
+/* ---- DNS Record Display ---- */
+.dns-record-group {
+  border: 1px solid rgba(51, 65, 85, 0.4);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.dns-record-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: rgba(30, 41, 59, 0.5);
+  border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+}
+
+.dns-record-body {
+  padding: 0.75rem 1rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  background: rgba(15, 23, 42, 0.4);
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.dns-record-body.empty {
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* ---- Code Block ---- */
+.code-block {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: #a3e635;
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.6;
+}
+
+/* ---- Progress Spinner ---- */
+.scan-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(16, 185, 129, 0.2);
+  border-top-color: #10b981;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Progress Step ---- */
+.progress-step {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.progress-step.done {
+  color: #10b981;
+}
+
+.progress-step.active {
+  color: #f8fafc;
+}
+
+.progress-step.pending {
+  color: #475569;
+}
+
+/* ---- Score Arc Color Variants ---- */
+.score-low    { stroke: #10b981; }
+.score-medium { stroke: #f59e0b; }
+.score-high   { stroke: #f97316; }
+.score-critical { stroke: #ef4444; }
+
+/* ---- TLS Item ---- */
+.tls-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+}
+
+.tls-item:last-child {
+  border-bottom: none;
+}
+
+/* ---- Finding Section Headers ---- */
+.finding-section-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.finding-section-title:first-child {
+  margin-top: 0;
+}
+
+/* ---- Confidence indicator ---- */
+.confidence-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.65rem;
+  color: #64748b;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  border-radius: 9999px;
+}
+
+/* ---- Utility ---- */
+.hidden {
+  display: none !important;
+}
+
+.text-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ---- Responsive Tweaks ---- */
+@media (max-width: 640px) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    padding: 0.65rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ---- Scrollbar Styling (Webkit) ---- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(51, 65, 85, 0.8);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.8);
+}
